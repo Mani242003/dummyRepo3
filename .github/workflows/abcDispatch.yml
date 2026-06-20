@@ -15,4 +15,4 @@ jobs:
     with:
       version: ${{ inputs.version }}
       ocptoken: ${{ inputs.ocptoken }}
-``
+

@@ -1,0 +1,39 @@
+name: Backend Build Deploy
+
+on:
+  workflow_call:
+    inputs:
+      version: { type: string, required: true }
+      ocptoken: { type: string, required: true }
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "=== BE BUILD ==="
+          echo "Version: ${{ inputs.version }}"
+          echo "Building backend..."
+
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "=== DOCKER ==="
+          echo "Building Docker image..."
+
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "=== BE DEPLOY ==="
+          echo "Token: ${{ inputs.ocptoken }}"
+          echo "Deploying backend..."
+
+  restart:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Restarting backend pods..."

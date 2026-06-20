@@ -1,0 +1,18 @@
+name: Trigger Backend Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        default: "1.0.0"
+      ocptoken:
+        required: true
+
+jobs:
+  call-backend:
+    uses: ./.github/workflows/backend-build-deploy.yml
+    with:
+      version: ${{ inputs.version }}
+      ocptoken: ${{ inputs.ocptoken }}
+``
